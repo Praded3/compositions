@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
 padding: 0 23px;
-/* margin-left: auto;
-margin-right: auto;  */
+justify-content: center;
 display: flex;
 align-items: center;
 @media screen and (max-width: 767px) {
