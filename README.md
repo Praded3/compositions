@@ -9,3 +9,7 @@ npm install styled-components@latest
 
 // https://react-icons.github.io/react-icons/
 npm install react-icons --save
+
+
+// https://emotion.sh/docs/introduction
+npm i @emotion/styled @emotion/react

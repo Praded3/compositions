@@ -1,3 +1,4 @@
+import React  from 'react';
 import { HeaderTag, Logo } from "./Header.styled";
 import { PageContainer } from "../../Container/Container";
 import { Nav } from "../Nav/Nav";

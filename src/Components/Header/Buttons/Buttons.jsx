@@ -1,9 +1,9 @@
-import {BtnContainer, BtnList, BtnItem,  RegBtn, SubBtn } from './Buttons.styled'
+import React  from 'react';
+import { BtnList, BtnItem, RegBtn, SubBtn } from './Buttons.styled'
 
 export const Buttons = ({ children }) => {
     return (
 
-        <BtnContainer>
             <BtnList>
                 <BtnItem>
                     <RegBtn>
@@ -17,6 +17,5 @@ export const Buttons = ({ children }) => {
                 </BtnItem>
             </BtnList>
 
-        </BtnContainer>
     );
 } 

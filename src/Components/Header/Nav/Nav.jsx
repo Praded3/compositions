@@ -1,3 +1,4 @@
+import React  from 'react';
 import { NavTag, NavList, NavItem, NavLink } from "./Nav.styled";
  
 export const Nav = ( ) => {
@@ -25,7 +26,7 @@ export const Nav = ( ) => {
                 <NavItem>
                     <NavLink rel="noopener no-referrel nofollow"
                             href="#services">
-                        Реєстрація
+                        Про спільноту
                     </NavLink>
                 </NavItem>
             </NavList>
