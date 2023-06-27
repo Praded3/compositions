@@ -1,6 +1,6 @@
 import React  from 'react';
 import { NavTag, NavList, NavItem, NavLink } from "./Nav.styled";
- 
+
 export const Nav = ( ) => {
     return (
         <NavTag>

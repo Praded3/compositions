@@ -10,5 +10,6 @@ export const theme = Object.freeze({
         qq: 200,
         ww: 700,
     },
+   
     spacing: value => `${4 * value}px`,
 });
