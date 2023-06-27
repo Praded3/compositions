@@ -6,6 +6,8 @@ import { ThemeProvider } from '@emotion/react'
 import { theme } from './Components/Constants/index';
 import {Feedback } from './Components/Feedback/Feedback'
 import {Dropdown } from './Components/Dropdown/Dropdowm'
+import { ColorPicker } from './Components/ColorPicker/ColorPicker';
+import colors from './assets/colors.json'
 export const App = () => {
   return (
     <React.Fragment>
@@ -21,10 +23,11 @@ export const App = () => {
 
         {/* Dropdown */}
         <PageSection>
-          <Dropdown>
+          <PageContainer>
+            <Dropdown/>
              
-
-          </Dropdown>
+            <ColorPicker colors={colors} />
+            </PageContainer>
           </PageSection>
       </ThemeProvider>
     </React.Fragment>
