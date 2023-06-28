@@ -1,5 +1,7 @@
 import React  from 'react';
 import { DropdownContainer, ShowBtn, DropdownMenu } from "./Dropdown.styled";
+import { ColorPicker } from '../ColorPicker/ColorPicker';
+import colors from '../../assets/colors.json'
 
 export class Dropdown extends React.Component {
     state = {
@@ -23,7 +25,10 @@ export class Dropdown extends React.Component {
                     {this.state.visible ? 'Hide': 'Show'}
                 </ShowBtn>
                 {this.state.visible &&
-                    <DropdownMenu>Drop menu</DropdownMenu>}
+                    <DropdownMenu>
+                        <ColorPicker colors={colors} />
+                    </DropdownMenu>
+                }
             </DropdownContainer>
         );
     }
