@@ -1,5 +1,8 @@
 import React  from 'react';
-import { TodoContainer, List, TodoItem, TodoText, TodoBtn } from './TodoList.module';
+import {
+    TodoContainer, List, TodoItem,
+    TodoText, TodoBtn, FormInput
+} from './TodoList.module';
 
 export class TodoList extends React.Component {
     state = {
@@ -20,10 +23,16 @@ export class TodoList extends React.Component {
                         <TodoItem
                             key={id}
                         >
+                            <FormInput
+                                type='checkbox'
+                                checked={competed}
+                                onChange={()=>this.props.onToggleCompleted(id)}
+                            />
                             <TodoText> {text} </TodoText>
-                            <TodoBtn type='button'
-                            onClick={()=> this.props.deleteTodo(id)}
-                            >
+                            <TodoBtn
+                                type='button'
+                                onClick={()=> this.props.deleteTodo(id)}
+                            > 
                             delete
                             </TodoBtn>
                         </TodoItem>

@@ -22,7 +22,7 @@ export const TodoItem = styled.li`
 export const TodoText = styled.p`
     display: flex;
     font-weight: ${props => props.theme.fontWidth.ww};
-    font-size: c
+    font-size: 16px;
     color: ${props => props.theme.colors.primeryTextColor};
 `
 export const TodoBtn = styled.button`
@@ -35,4 +35,9 @@ export const TodoBtn = styled.button`
         background-color:  ${props => props.theme.colors.primeryBgc};
         color: ${props => props.theme.colors.accentColor};
     }
+`
+export const FormInput = styled.input`
+    display: flex;
+    border: ${props => `2px solid ${props.theme.colors.accentColor}`};
+    background-color: ${props => props.color};
 `

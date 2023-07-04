@@ -13,3 +13,7 @@ npm install react-icons --save
 
 // https://emotion.sh/docs/introduction
 npm i @emotion/styled @emotion/react
+
+
+//https://www.npmjs.com/package/shortid
+npm i nanoid

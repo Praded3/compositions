@@ -1,4 +1,5 @@
-import React, { Component }  from 'react';
+import React, { Component } from 'react';
+import { nanoid } from 'nanoid';
 import { Header } from './Components/Header/Header/Header';
 import {PageSection} from './Components/Section/Section'
 import { PageContainer } from './Components/Container/Container'
@@ -7,6 +8,10 @@ import { theme } from './Components/Constants/index';
 import {Feedback } from './Components/Feedback/Feedback'
 import { Dropdown } from './Components/Dropdown/Dropdowm'
 import { TodoList } from './Components/TodoList/TodoList'
+import { TestForm } from './Components/TestForm/TestFoms';
+import { TodoEditor } from './Components/TodoEditor/TodoEditor';
+import { PhoneBook } from './Components/PhoneBook/PhoneBook/PhoneBook';
+
 
 export class App extends Component {
   state = {
@@ -22,6 +27,36 @@ export class App extends Component {
       todos: prevState.todos.filter(todo => todo.id !== todoId),
     }));
   };
+  testFormSubmit = data => {
+    console.log(data);
+    
+  }
+  onToggleCompleted = (todoId) => {
+    console.log('todoId', todoId)
+    this.setState(prevState => ({
+      todos: prevState.todos.map(todo => {
+        if (todo.id === todoId) {
+          return {
+            ...todo,
+            competed: !todo.competed,
+          };
+        }
+        return todo;
+      }),
+    }));
+  };
+  addTodo = text => {
+    console.log(text);
+    const todo = {
+      id: nanoid(),
+      text,
+      competed: false,
+    };
+    
+    this.setState(prevState => ({
+      todos: [todo, ...prevState.todos],
+    }));
+  };
 
   render() {
     const { todos } = this.state; 
@@ -30,10 +65,23 @@ export class App extends Component {
       <React.Fragment>
         <ThemeProvider theme={theme}>
           <Header />
+          <PageSection>
+            <PageContainer>
+              <PhoneBook
+              onSubmit={ this.testFormSubmit }
+              />
+            </PageContainer>
+          </PageSection>
           {/* Feedback */}
           <PageSection>
             <PageContainer>
-              <TodoList todos={todos} deleteTodo={this.deleteTodo } />
+              <TodoEditor onSubmit={this.addTodo} />
+              <TestForm onSubmit={ this.testFormSubmit } />
+              <TodoList
+                todos={todos}
+                deleteTodo={this.deleteTodo}
+                onToggleCompleted={this.onToggleCompleted}
+              />
             </PageContainer>
           </PageSection>
           <PageSection>
@@ -51,7 +99,4 @@ export class App extends Component {
       </React.Fragment>
     );
   }
-  
- 
 };
- 

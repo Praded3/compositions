@@ -3,6 +3,7 @@
 body {
   font-family: sans-serif;
   line-height: 1.5;
+  background-color: rgb(226, 230, 226);
 }
 
 h1,
@@ -48,6 +49,7 @@ code {
     monospace;
 }
 
+/* 
 * {
   outline: 1px solid tomato;
-}
+} */
