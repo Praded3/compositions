@@ -25,5 +25,4 @@ export const FormBtn = styled.button`
     font-size: ${props => props.theme.spacing(5)};
     padding: ${props => props.theme.spacing(2)};
     background-color: ${props => props.color};
-    
 `
