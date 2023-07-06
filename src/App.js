@@ -11,7 +11,8 @@ import { TodoList } from './Components/TodoList/TodoList'
 import { TestForm } from './Components/TestForm/TestFoms';
 import { TodoEditor } from './Components/TodoEditor/TodoEditor';
 import { PhoneBook } from './Components/PhoneBook/PhoneBook/PhoneBook';
-
+import { LoginForm } from './Components/LoginForm/LoginForm';
+import { Modal } from './Components/Modal/Modal';
 
 export class App extends Component {
   state = {
@@ -20,6 +21,13 @@ export class App extends Component {
       { id: 'id-2', text: 'Task 2', competed: false },
       { id: 'id-3', text: 'Task 3', competed: false },
     ],
+    showModal: false
+  };
+
+  toogleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
   };
 
   deleteTodo = (todoId) => {
@@ -64,8 +72,12 @@ export class App extends Component {
     return (
       <React.Fragment>
         <ThemeProvider theme={theme}>
-          <Header />
+          <Header toogleModal={ this.toogleModal} />
+          {this.state.showModal && <Modal/>}
           <PageSection>
+            <PageContainer>
+              <LoginForm />
+            </PageContainer>
             <PageContainer>
               <PhoneBook
               onSubmit={ this.testFormSubmit }

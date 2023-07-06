@@ -15,7 +15,7 @@ export const BtnItem = styled.li`
     display: flex;
 `
 
-export const RegBtn = styled.a`
+export const RegBtn = styled.button`
   padding: ${props => props.theme.spacing(4)};
   border: ${props => ` 21px solid ${props.theme.colors.accentColor}`};
   display: flex;
@@ -25,7 +25,7 @@ export const RegBtn = styled.a`
   color: ${({theme})=>{return theme.colors.accentColor}};
 `
 
-export const SubBtn = styled.a`
+export const SubBtn = styled.button`
   padding: 20px;
   border: 2px solid orange;
   display: flex;
