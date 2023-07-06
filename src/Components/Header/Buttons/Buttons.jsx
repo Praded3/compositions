@@ -1,6 +1,7 @@
 import React, {Component}  from 'react';
 import { BtnList, BtnItem, RegBtn, SubBtn } from './Buttons.styled'
 import { Modal } from '../../Modal/Modal';
+import { LoginForm } from '../../LoginForm/LoginForm';
 
 export class Buttons extends Component{
     state = {
@@ -16,7 +17,11 @@ export class Buttons extends Component{
          return (
              
              <BtnList>
-                 {this.state.showModal && <Modal/>}
+                {this.state.showModal &&
+                    <Modal toogleModal={this.toogleModal}>
+                        <LoginForm/>
+                    </Modal>
+                }
                 <BtnItem>
                     <RegBtn
                         onClick={this.toogleModal}

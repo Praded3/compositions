@@ -23,7 +23,20 @@ const Input = styled(Field)`
     font-size: 16px;
     font-weight: 500;
 ` 
-
+const LogForm = styled(Form)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-flex-group: grey;
+    border: 2px solid red;
+    font-size: 16px;
+    font-weight: 500;
+    padding-top: auto;
+    height: 100%;
+    gap:16px;
+    
+` 
 const ErrorText = styled.p`
     display: flex;
     color: red;
@@ -47,24 +60,33 @@ export const LoginForm = () => {
         resetForm();
 
         const user = localStorage.getItem("user");
-        const parsedUser = JSON.parse(user);
-        const strUser = parsedUser.toString();
-        const strValuesLogin = values.login.toString();
-        console.log('values', values)
-
-
-        console.log('first', parsedUser)
-        if (strUser.length !== strValuesLogin.length) {
-            console.log('no')
+        console.log('user', user)
+        if (user) {
+            const parsedUser = JSON.parse(user);
+            const strUser = parsedUser.login.toString();
+           
+            const strValuesLogin = values.login.toString();
+            console.log('values', values);
+            
+            if (strUser.length !== strValuesLogin.length) {
+                console.log('no')
+                localStorage.setItem("user", JSON.stringify(values));
+            }
+        } else {
             localStorage.setItem("user", JSON.stringify(values));
         }
+        
+
+
+      
+        
         
 
     };
     return (
         
         <Formik initialValues={initialValues} validationSchema={userSchema} onSubmit={handleSubmit}>
-            <Form>
+            <LogForm>
                 <Label> User Name
                     <Input  
                         name='login' 
@@ -91,7 +113,7 @@ export const LoginForm = () => {
                 >
                     Login
                 </Btn>
-            </Form>
+            </LogForm>
         </Formik>
     )
     

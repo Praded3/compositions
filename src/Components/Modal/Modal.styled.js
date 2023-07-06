@@ -23,3 +23,13 @@ export const ModalContainer = styled.div`
     transform: translate(-50%, -50%);
     border-radius: 3px;
 ` 
+export const Button = styled.button`
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 10%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    border-radius: 3px;
+    background-color: ${props=> props.theme.colors.accentColor};
+` 

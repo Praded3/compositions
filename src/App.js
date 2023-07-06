@@ -12,7 +12,6 @@ import { TestForm } from './Components/TestForm/TestFoms';
 import { TodoEditor } from './Components/TodoEditor/TodoEditor';
 import { PhoneBook } from './Components/PhoneBook/PhoneBook/PhoneBook';
 import { LoginForm } from './Components/LoginForm/LoginForm';
-import { Modal } from './Components/Modal/Modal';
 
 export class App extends Component {
   state = {
@@ -21,13 +20,6 @@ export class App extends Component {
       { id: 'id-2', text: 'Task 2', competed: false },
       { id: 'id-3', text: 'Task 3', competed: false },
     ],
-    showModal: false
-  };
-
-  toogleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
   };
 
   deleteTodo = (todoId) => {
@@ -66,6 +58,7 @@ export class App extends Component {
     }));
   };
 
+  //забрать зафетчить засетить начальний стейт данних
   componentDidMount( ) {
     const todos = localStorage.getItem('todos');
     const parsedTodos = JSON.parse(todos);
@@ -74,8 +67,10 @@ export class App extends Component {
     };
   };
 
+  // можем записать чтото новое в локал сторедж, 
+  // послать новій запрос
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.todos !== prevState.todos) {
+    if (this.state.todos !== prevState.todos ) {// проверять на обнову
       localStorage.setItem('todos', JSON.stringify(this.state.todos))
     }
   }
@@ -86,12 +81,8 @@ export class App extends Component {
     return (
       <React.Fragment>
         <ThemeProvider theme={theme}>
-          <Header toogleModal={ this.toogleModal} />
-          {this.state.showModal && <Modal/>}
+          <Header />
           <PageSection>
-            <PageContainer>
-              <LoginForm />
-            </PageContainer>
             <PageContainer>
               <PhoneBook
               onSubmit={ this.testFormSubmit }
