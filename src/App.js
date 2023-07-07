@@ -16,7 +16,7 @@ import tabs from './assets/tabsContent.json'
 import { Tabs } from './Components/Tabs/Tabs';
 import {Pokemon} from './Components/Pokemon/Pokemon';
 import { PokemonForm } from './Components/PokemonForm/PokemonForm';
-import 'react-toastify/dist/ReactToastify.css';
+
 export class App extends Component {
   state = {
     todos: [
@@ -90,7 +90,18 @@ export class App extends Component {
     const notify = () => toast("Wow so easy !");
     return (
       <React.Fragment>
-        <ToastContainer />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
         <ThemeProvider theme={theme}>
           <Header />
           <PageSection>
@@ -103,7 +114,7 @@ export class App extends Component {
           </PageSection>
           <PageSection>
             <PageContainer>
-              <Tabs tabs={tabs } onClick={notify}/>
+              <Tabs tabs={tabs } />
             </PageContainer>
           </PageSection>
           <PageSection>

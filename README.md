@@ -25,4 +25,4 @@ https://www.npmjs.com/package/yup
 npm i yup
 
 https://www.npmjs.com/package/react-toastify
-npm install --save react-toastify
+npm i react-toastify@9.0.3
