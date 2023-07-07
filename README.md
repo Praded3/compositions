@@ -23,3 +23,6 @@ npm install formik --save
 
 https://www.npmjs.com/package/yup
 npm i yup
+
+https://www.npmjs.com/package/react-toastify
+npm install --save react-toastify

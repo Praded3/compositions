@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+  import { ToastContainer, toast } from 'react-toastify';
 import { nanoid } from 'nanoid';
 import { Header } from './Components/Header/Header/Header';
 import {PageSection} from './Components/Section/Section'
@@ -11,11 +12,11 @@ import { TodoList } from './Components/TodoList/TodoList'
 import { TestForm } from './Components/TestForm/TestFoms';
 import { TodoEditor } from './Components/TodoEditor/TodoEditor';
 import { PhoneBook } from './Components/PhoneBook/PhoneBook/PhoneBook';
-import { LoginForm } from './Components/LoginForm/LoginForm';
 import tabs from './assets/tabsContent.json'
 import { Tabs } from './Components/Tabs/Tabs';
-
-
+import {Pokemon} from './Components/Pokemon/Pokemon';
+import { PokemonForm } from './Components/PokemonForm/PokemonForm';
+import 'react-toastify/dist/ReactToastify.css';
 export class App extends Component {
   state = {
     todos: [
@@ -23,6 +24,7 @@ export class App extends Component {
       { id: 'id-2', text: 'Task 2', competed: false },
       { id: 'id-3', text: 'Task 3', competed: false },
     ],
+    pokemonName: "",
   };
 
   deleteTodo = (todoId) => {
@@ -78,16 +80,30 @@ export class App extends Component {
     }
   }
 
+  handlePolemonItem = pokemonName => {
+   
+    this.setState({ pokemonName });
+  }
+
   render() {
     const { todos } = this.state; 
-    
+    const notify = () => toast("Wow so easy !");
     return (
       <React.Fragment>
+        <ToastContainer />
         <ThemeProvider theme={theme}>
           <Header />
           <PageSection>
+ 
             <PageContainer>
-              <Tabs tabs={tabs } />
+              
+              <PokemonForm onSubmit={ this.handlePolemonItem} />
+              
+            </PageContainer>
+          </PageSection>
+          <PageSection>
+            <PageContainer>
+              <Tabs tabs={tabs } onClick={notify}/>
             </PageContainer>
           </PageSection>
           <PageSection>
@@ -101,7 +117,6 @@ export class App extends Component {
           <PageSection>
             <PageContainer>
               <TodoEditor onSubmit={this.addTodo} />
-              <TestForm onSubmit={ this.testFormSubmit } />
               <TodoList
                 todos={todos}
                 deleteTodo={this.deleteTodo}
