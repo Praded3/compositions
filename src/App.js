@@ -12,6 +12,9 @@ import { TestForm } from './Components/TestForm/TestFoms';
 import { TodoEditor } from './Components/TodoEditor/TodoEditor';
 import { PhoneBook } from './Components/PhoneBook/PhoneBook/PhoneBook';
 import { LoginForm } from './Components/LoginForm/LoginForm';
+import tabs from './assets/tabsContent.json'
+import { Tabs } from './Components/Tabs/Tabs';
+
 
 export class App extends Component {
   state = {
@@ -82,6 +85,11 @@ export class App extends Component {
       <React.Fragment>
         <ThemeProvider theme={theme}>
           <Header />
+          <PageSection>
+            <PageContainer>
+              <Tabs tabs={tabs } />
+            </PageContainer>
+          </PageSection>
           <PageSection>
             <PageContainer>
               <PhoneBook

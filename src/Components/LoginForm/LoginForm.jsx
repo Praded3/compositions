@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Field, Formik, Form, ErrorMessage   } from 'formik';
 import {   Btn, Label } from './LoginForm.styled';
 import styled from 'styled-components';
@@ -9,12 +9,6 @@ const userSchema = object({
     email: string().email().required(),
     password: string().min(6, 'Too short').required(),
 });
-
-const initialValues = {
-    login: '',
-    email:'',
-    password: '',
-};
     
 const Input = styled(Field)`
     display: flex;
@@ -44,6 +38,7 @@ const ErrorText = styled.p`
     font-weight: 500;
 ` 
 
+
 const FormError = ({ name }) => {
     return (
         <ErrorMessage
@@ -53,69 +48,79 @@ const FormError = ({ name }) => {
     );
 };
 
+const USER_KEY = 'user';
 
-export const LoginForm = () => {
+export class LoginForm extends Component {
 
-    const handleSubmit = (values, {resetForm}) => {
-        resetForm();
-
-        const user = localStorage.getItem("user");
-        console.log('user', user)
-        if (user) {
-            const parsedUser = JSON.parse(user);
-            const strUser = parsedUser.login.toString();
-           
-            const strValuesLogin = values.login.toString();
-            console.log('values', values);
-            
-            if (strUser.length !== strValuesLogin.length) {
-                console.log('no')
-                localStorage.setItem("user", JSON.stringify(values));
-            }
-        } else {
-            localStorage.setItem("user", JSON.stringify(values));
+    state = {
+        initialValues: {
+            login: '',
+            email:'',
+            password: '',
         }
-        
-
-
-      
-        
-        
-
     };
-    return (
+
+    componentDidMount() {
+        const savedUser = localStorage.getItem(USER_KEY);
+        if (USER_KEY) {
+            this.setState(state => ({
+                initialValues: JSON.parse(savedUser),
+            }));
+        };
+    };
+
+    componentDidUpdate(_, prevState) {
+        if (prevState.initialValues.login !== this.state.initialValues.login) {
+            localStorage.setItem(USER_KEY, JSON.stringify(this.state.initialValues));
+        };
+    }
+
+    handleSubmit  = (values, {resetForm}) => {
+        this.setState(state => ({
+            initialValues: values,
+            
+        }));
+        resetForm();
+    }
+
+    render() {
+
+        return (
         
-        <Formik initialValues={initialValues} validationSchema={userSchema} onSubmit={handleSubmit}>
-            <LogForm>
-                <Label> User Name
-                    <Input  
-                        name='login' 
-                        type='text'
-                    />
-                    <FormError component="div" name='login'/>
-                </Label>
-                <Label> E-mail
-                    <Input  
-                        name='email' 
-                        type='email'
-                    />
-                    <FormError component="div" name='email'/>
-                </Label>
-                <Label> Password
-                    <Input  
-                        name='password' 
-                        type='password'
-                    />
-                    <FormError component="div" name='password'/>
-                </Label>
-                <Btn
-                    type='submit'
-                >
-                    Login
-                </Btn>
-            </LogForm>
-        </Formik>
-    )
-    
-    
+            <Formik
+                initialValues={this.state.initialValues}
+                validationSchema={userSchema}
+                onSubmit={this.handleSubmit}
+            >
+                <LogForm>
+                    <Label> User Name
+                        <Input
+                            name='login'
+                            type='text'
+                        />
+                        <FormError component="div" name='login' />
+                    </Label>
+                    <Label> E-mail
+                        <Input
+                            name='email'
+                            type='email'
+                        />
+                        <FormError component="div" name='email' />
+                    </Label>
+                    <Label> Password
+                        <Input
+                            name='password'
+                            type='password'
+                        />
+                        <FormError component="div" name='password' />
+                    </Label>
+                    <Btn 
+                        type='submit'
+                    >
+                        Login
+                    </Btn >
+                </LogForm>
+            </Formik>
+        );
+    }
 }

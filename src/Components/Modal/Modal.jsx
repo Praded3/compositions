@@ -10,6 +10,12 @@ export class Modal extends Component {
             this.props.toogleModal();
         }
     };
+    
+    handleBackdropClick = e => {
+        if (e.target === e.currentTarget) {
+            this.props.toogleModal();
+        };
+    };
 
     componentDidMount() {
         window.addEventListener('keydown', this.handleKeydown)
@@ -17,13 +23,7 @@ export class Modal extends Component {
 
     componentWillUnmount() {
         window.removeEventListener('keydown', this.handleKeydown)
-    }
-
-    handleBackdropClick = e => {
-        if (e.target === e.currentTarget) {
-            this.props.toogleModal();
-        };
-    }
+    };
 
     render() {
         return createPortal(
@@ -38,5 +38,5 @@ export class Modal extends Component {
             </Backdrop>,
             modalRoot,
         );
-    }
-}
+    };
+};
