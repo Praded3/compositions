@@ -1,6 +1,6 @@
 import React, { Children, Component } from 'react';
 import{Dqqqq} from './Pokemon.styled'
-import {PageContainer} from '../Container/Container';
+import {PageContainer} from '../../Container/Container';
 
 export   class Pokemon extends Component {
 

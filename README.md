@@ -26,3 +26,6 @@ npm i yup
 
 https://www.npmjs.com/package/react-toastify
 npm i react-toastify@9.0.3
+
+
+npm install axios

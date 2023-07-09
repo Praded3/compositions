@@ -14,8 +14,11 @@ import { TodoEditor } from './Components/TodoEditor/TodoEditor';
 import { PhoneBook } from './Components/PhoneBook/PhoneBook/PhoneBook';
 import tabs from './assets/tabsContent.json'
 import { Tabs } from './Components/Tabs/Tabs';
-import {Pokemon} from './Components/Pokemon/Pokemon';
-import { PokemonForm } from './Components/PokemonForm/PokemonForm';
+import {Pokemon} from './Components/PokemonComponent/Pokemon/Pokemon';
+import { PokemonForm } from './Components/PokemonComponent/PokemonForm/PokemonForm';
+import { MaterialsForm } from './Components/MaterialsComponent/MaterialsForm/MaterialsForm';
+import * as API from './Components/MaterialsComponent/MateialsApi/MaterialsApi'
+
 
 export class App extends Component {
   state = {
@@ -25,6 +28,22 @@ export class App extends Component {
       { id: 'id-3', text: 'Task 3', competed: false },
     ],
     pokemonName: "",
+    matetials: [],
+    isLoading: false
+  };
+
+  addMaterial = async values => {
+    try {
+      this.setState({isLoading: true})
+      const material = await API.addMaterial(values);
+      this.setState(state => ({
+        matetials: [material, ...state.matetials],
+        isLoading: false,
+    }));
+    } catch (error) {
+      console.log(error);
+      
+    }
   };
 
   deleteTodo = (todoId) => {
@@ -86,7 +105,7 @@ export class App extends Component {
   }
 
   render() {
-    const { todos } = this.state; 
+    const { todos, isLoading } = this.state; 
     const notify = () => toast("Wow so easy !");
     return (
       <React.Fragment>
@@ -106,9 +125,13 @@ export class App extends Component {
           <Header />
           <PageSection>
  
-            <PageContainer>
+            <PageContainer >
+              {this.state.isLoading && <div>Loading</div>}
               
-              <PokemonForm onSubmit={ this.handlePolemonItem} />
+              <MaterialsForm
+                onSubmit={this.addMaterial}
+              />
+              {/* <PokemonForm onSubmit={ this.handlePolemonItem} /> */}
               
             </PageContainer>
           </PageSection>
