@@ -18,7 +18,7 @@ import {Pokemon} from './Components/PokemonComponent/Pokemon/Pokemon';
 import { PokemonForm } from './Components/PokemonComponent/PokemonForm/PokemonForm';
 import { MaterialsForm } from './Components/MaterialsComponent/MaterialsForm/MaterialsForm';
 import * as API from './Components/MaterialsComponent/MateialsApi/MaterialsApi'
-
+import {MaterialsContainer} from './Components/MaterialsComponent/MaterialsContainer/MaterialsContainer'
 
 export class App extends Component {
   state = {
@@ -28,8 +28,9 @@ export class App extends Component {
       { id: 'id-3', text: 'Task 3', competed: false },
     ],
     pokemonName: "",
-    matetials: [],
-    isLoading: false
+    materials: [],
+    isLoading: false,
+    error: false
   };
 
   addMaterial = async values => {
@@ -37,12 +38,39 @@ export class App extends Component {
       this.setState({isLoading: true})
       const material = await API.addMaterial(values);
       this.setState(state => ({
-        matetials: [material, ...state.matetials],
+        materials: [material, ...state.materials],
         isLoading: false,
     }));
     } catch (error) {
+      this.setState({ error: true})
       console.log(error);
-      
+    }
+  };
+
+  deleteMaterial = async id => {
+    try {
+      await API.deleteMaterial(id);
+      this.setState(state => ({
+      materials: state.materials.filter(material =>
+        material.id !== id),
+    }));
+    } catch (error) {
+      this.setState({ error: true });
+      console.log('error', error);
+    }
+  };
+
+  updateMaterial = async fields => {
+    try {
+      const updateMaterial = await API.updateMaterial(fields);
+        this.setState(state => ({
+        materials: state.materials.map(material =>
+        material.id === fields.id ? updateMaterial : material
+      ),
+    }));
+    } catch (error) {
+      this.setState({ error: true });
+      console.log('error', error.code);
     }
   };
 
@@ -83,12 +111,20 @@ export class App extends Component {
   };
 
   //забрать зафетчить засетить начальний стейт данних
-  componentDidMount( ) {
-    const todos = localStorage.getItem('todos');
-    const parsedTodos = JSON.parse(todos);
-    if (parsedTodos) {
-      this.setState({ todos: parsedTodos });
-    };
+  async componentDidMount( ) {
+    // const todos = localStorage.getItem('todos');
+    // const parsedTodos = JSON.parse(todos);
+    // if (parsedTodos) {
+    //   this.setState({ todos: parsedTodos });
+    // };
+
+    try {
+      this.setState({ isLoading: true });
+      const materials = await API.getAllMaterials();
+      this.setState({ materials, isLoading: false });
+    } catch (error) {
+      console.log('error', error)
+    }
   };
 
   // можем записать чтото новое в локал сторедж, 
@@ -105,7 +141,7 @@ export class App extends Component {
   }
 
   render() {
-    const { todos, isLoading } = this.state; 
+    const { todos, materials, isLoading, error } = this.state; 
     const notify = () => toast("Wow so easy !");
     return (
       <React.Fragment>
@@ -126,11 +162,20 @@ export class App extends Component {
           <PageSection>
  
             <PageContainer >
-              {this.state.isLoading && <div>Loading</div>}
+              {error && <p>sorry it is some error</p>}
+              
               
               <MaterialsForm
                 onSubmit={this.addMaterial}
               />
+              
+              {isLoading ?
+                <p>Loading</p> :
+                <MaterialsContainer
+                  items={materials}
+                  deleteMaterial={this.deleteMaterial}
+                  updateMaterial={this.updateMaterial}
+                />}
               {/* <PokemonForm onSubmit={ this.handlePolemonItem} /> */}
               
             </PageContainer>
